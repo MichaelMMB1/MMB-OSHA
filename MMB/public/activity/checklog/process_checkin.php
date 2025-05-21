@@ -1,62 +1,63 @@
 <?php
-session_start();
+// public/activity/checklog/process_checkin.php – PostgreSQL version
+
+// 1) Start session & auth
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /MMB/dashboard.php");
+    header('Location: ../../login.php');
     exit;
 }
 
-// 1) load the DB
+// 2) Include DB connection
 require_once __DIR__ . '/../../../config/db_connect.php';
 
-$user_id = $_SESSION['user_id'];
+// 3) Retrieve & validate inputs
+$userId    = $_SESSION['user_id'];
+$projectId = filter_input(INPUT_POST, 'project_id', FILTER_VALIDATE_INT);
 
-// 2) Prevent double-check-in
-$stmt = $mysqli->prepare("
-    SELECT id
-      FROM check_log
-     WHERE user_id        = ?
-       AND check_out_date IS NULL
-       AND check_out_clock IS NULL
-    LIMIT 1
-");
-$stmt->bind_param('i', $user_id);
-$stmt->execute();
-$stmt->store_result();
-if ($stmt->num_rows > 0) {
-    // Already in—just bounce back
-    $stmt->close();
-    $back = $_SERVER['HTTP_REFERER'] ?? '/MMB/dashboard.php';
-    header("Location: $back");
+if (!$userId || !$projectId) {
+    http_response_code(400);
+    echo 'Invalid request.';
     exit;
 }
-$stmt->close();
 
-// 3) Look up project name
-$project_name = 'Dashboard';
-if (!empty($_POST['project_id'])) {
-    $pid = (int) $_POST['project_id'];
-    $q = $mysqli->prepare("SELECT project_name FROM project_addresses WHERE id = ?");
-    $q->bind_param('i', $pid);
-    $q->execute();
-    $q->bind_result($project_name);
-    $q->fetch();
-    $q->close();
+// 4) Fetch project details for name & address
+$projSql = "SELECT project_name, address_line1 FROM project_addresses WHERE id = \$1";
+$projRes = pg_query_params($conn, $projSql, [$projectId]);
+if (!$projRes || pg_num_rows($projRes) === 0) {
+    http_response_code(404);
+    echo 'Project not found.';
+    exit;
+}
+$projRow     = pg_fetch_assoc($projRes);
+$projectName = $projRow['project_name'];
+$address1    = $projRow['address_line1'];
+
+// 5) Insert the check-in
+$sql = <<<SQL
+INSERT INTO check_log (
+    user_id,
+    project_id,
+    project_name,
+    address_line1,
+    check_in_date,
+    check_in_clock
+) VALUES (
+    \$1, \$2, \$3, \$4, CURRENT_DATE, CURRENT_TIME
+)
+SQL;
+$params = [$userId, $projectId, $projectName, $address1];
+$result = pg_query_params($conn, $sql, $params);
+
+if (!$result) {
+    http_response_code(500);
+    echo 'Database error: ' . pg_last_error($conn);
+    exit;
 }
 
-// 4) Insert the check-in
-$date = date('Y-m-d');
-$time = date('H:i:s');
-
-$stmt = $mysqli->prepare("
-    INSERT INTO check_log
-      (user_id, location, check_in_date, check_in_clock)
-    VALUES (?,?,?,?)
-");
-$stmt->bind_param('isss', $user_id, $project_name, $date, $time);
-$stmt->execute();
-$stmt->close();
-
-// 5) Redirect back to Dashboard
-$back = $_SERVER['HTTP_REFERER'] ?? '/MMB/dashboard.php';
-header("Location: $back");
+// 6) Redirect back to dashboard
+header('Location: /dashboard.php');
 exit;
+?>

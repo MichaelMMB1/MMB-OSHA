@@ -1,0 +1,440 @@
+:root {
+  --color-header:     #0f4d75;
+  --color-accent:     #dc6504;
+  --color-subheader:  #0090c8;
+  --color-body:       #1c262b;
+}
+
+.navbar {
+  display: flex;
+  align-items: center; /* vertical center */
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 60px;
+  background-color: var(--color-header);
+  border-bottom: 5px solid var(--color-accent);
+}
+
+.navbar-left img {
+  height: auto;           /* remove fixed height */
+  width: 100px;            /* set fixed width to control size */
+  transform: rotate(0deg);
+  transform-origin: center;
+  display: block;
+  margin: 0 auto;
+}
+
+.logo-vertical {
+  max-height: 70vh;
+  width: auto;
+  transform: rotate(90deg);
+  transform-origin: center center;
+  /* no changes needed here */
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+}
+
+.navbar-right a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.navbar-right a:hover {
+  color: var(--color-subheader);
+  text-decoration: underline;
+}
+
+.navbar-profile-container {
+  position: relative;
+}
+
+.navbar-profile {
+  width: 32px;
+  height: 32px;
+  background-color: #ccc;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  border: 2px solid var(--color-body);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 140px;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.dropdown-header {
+  padding: 8px 16px;
+  font-weight: 700;
+  color: var(--color-body);
+  border-bottom: 1px solid var(--color-accent);
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 16px;
+  color: var(--color-body);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdown-menu a:hover {
+  background-color: var(--color-subheader);
+  color: white;
+}
+
+/* Show dropdown on profile hover */
+.navbar-profile-container:hover .dropdown-menu {
+  display: block;
+}
+
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+/* ── Body and Main Container Styling ───────────────────────────────────── */
+
+body {
+  background-color: #f8f9fa;  /* Very light gray background */
+  color: #212529;             /* Dark text for readability */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.container.page-content {
+  max-width: flex;
+  margin: 1rem  3rem ;   /* Center container with vertical spacing */
+  background: #ffffff;            /* White background for main content */
+  border-radius: 12px;            /* Rounded corners */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  padding: 2rem 3rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #212529;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+/* Input and search bar styling consistent with container */
+input[type="search"],
+input[type="text"],
+input[type="date"],
+input[type="time"],
+select {
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+select:focus {
+  border-color: var(--color-accent);
+  outline: none;
+  box-shadow: 0 0 5px var(--color-accent);
+}
+
+/* Buttons inside container */
+button {
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+/* Example button styling */
+.btn-primary {
+  background-color: var(--color-header);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent);
+}
+
+/* Margin utility */
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+
+/* ── Tab Style (match site-wide underline style) ─────────────────────── */
+/* Tabs container */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Tab buttons */
+.tab-btn {
+  background: none;
+  border: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-header);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  user-select: none;
+}
+
+.tab-btn:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+.tab-btn.active {
+  background-color: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 4px 6px rgba(220, 101, 4, 0.6);
+}
+
+/* Tab panels container */
+.tab-panels {
+  width: 100%;
+}
+
+/* Hide all panels by default */
+.tab-panel {
+  display: none;
+}
+
+/* Show active panel */
+.tab-panel.active {
+  display: block;
+}
+
+
+/* ── Scheduler Table Styles ───────────────────────────────────────────── */
+.styled-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-body);
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.styled-table thead tr {
+  background-color: var(--color-header);
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+}
+
+.styled-table thead th {
+  padding: 12px 16px;
+  border-bottom: none;
+  
+}
+
+.styled-table tbody tr {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+  transition: background-color 0.2s ease;
+  border-radius: 6px;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f0f4f8;
+}
+
+.styled-table tbody td {
+  padding: 10px 16px;
+  border: none;
+  vertical-align: middle;
+}
+
+/* Tag container: vertical stack */
+.tag-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+  align-items: flex-start;
+}
+
+/* Tag style: pill with subtle shadow */
+.tag {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.25);
+  font-size: 0.85rem;
+  white-space: nowrap;
+  line-height: 1.2;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: relative;
+  background-color: inherit; /* background set inline */
+  color: #1c262b;
+}
+
+.tag .tag-remove {
+  margin-left: 0.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #fff;
+}
+
+.tag:hover .tag-remove {
+  color: #000;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: var(--color-header);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+.btn-modify {
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-modify:hover {
+  background-color: #c35402;
+}
+
+/* Locked state */
+.locked .btn-clear,
+.locked #save-all {
+  display: none;
+}
+
+.locked .user-select {
+  display: none;
+}
+
+
+
+
+/* Hide All Week and Clear columns when locked */
+.locked th:nth-child(2),
+.locked td:nth-child(2),
+.locked th:last-child,
+.locked td:last-child {
+  display: none;
+}
+
+.activity-toolbar {
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem 0; /* optional padding for spacing */
+  align-items: center;
+}
+
+.activity-toolbar input[type="search"] {
+  flex-grow: 1;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #004d9b;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.activity-toolbar button.btn-primary {
+  padding: 0.6rem 1.5rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#saveAllButton {
+  display: none;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+
+/* ensure all cells start their content at the top */
+#schedule-table td {
+  vertical-align: top;
+}
+
+/* remove any default margin on the select so it hugs the top */
+.user-select {
+  margin: 0;
+  display: block;  /* make sure it’s a block for consistent spacing */
+}

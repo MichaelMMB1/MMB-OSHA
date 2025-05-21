@@ -1,48 +1,63 @@
 <?php
-session_start();
+// public/activity/checklog/process_checkout.php – PostgreSQL version with redirect
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['user_id'])) {
-    header("Location: /MMB/dashboard.php");
+    header("Location: ../../login.php");
     exit;
 }
 
-// load DB
+// Include PostgreSQL connection (defines $conn)
 require_once __DIR__ . '/../../../config/db_connect.php';
 
-$user_id = $_SESSION['user_id'];
-$date    = date('Y-m-d');
-$time    = date('H:i:s');
+$user_id    = $_SESSION['user_id'];
+$checkin_id = filter_input(INPUT_POST, 'checkin_id', FILTER_VALIDATE_INT);
 
-// 1) Find the open check-in
-$stmt = $mysqli->prepare("
-    SELECT id
-      FROM check_log
-     WHERE user_id        = ?
-       AND check_out_date IS NULL
-       AND check_out_clock IS NULL
-     ORDER BY check_in_date  DESC,
-              check_in_clock DESC
-     LIMIT 1
-");
-$stmt->bind_param('i', $user_id);
-$stmt->execute();
-$stmt->bind_result($open_id);
-$stmt->fetch();
-$stmt->close();
-
-// 2) Close it if found
-if (!empty($open_id)) {
-    $u = $mysqli->prepare("
-      UPDATE check_log
-         SET check_out_date  = ?,
-             check_out_clock = ?
-       WHERE id             = ?
-    ");
-    $u->bind_param('ssi', $date, $time, $open_id);
-    $u->execute();
-    $u->close();
+if (!$checkin_id) {
+    http_response_code(400);
+    echo "Missing or invalid check-in ID.";
+    exit;
 }
 
-// 3) Back to Dashboard
-$back = $_SERVER['HTTP_REFERER'] ?? '/MMB/dashboard.php';
-header("Location: $back");
-exit;
+// Validate the check-in record belongs to the user and is still open
+$result = pg_query_params(
+    $conn,
+    "SELECT id FROM check_log
+     WHERE id = $1
+       AND user_id = $2
+       AND check_out_date IS NULL
+       AND check_out_clock IS NULL",
+    [$checkin_id, $user_id]
+);
+
+if (!$result || pg_num_rows($result) === 0) {
+    http_response_code(403);
+    echo "Unauthorized or already checked out.";
+    exit;
+}
+
+// Perform the check-out
+$current_date = date('Y-m-d');
+$current_time = date('H:i:s');
+
+$update = pg_query_params(
+    $conn,
+    "UPDATE check_log
+        SET check_out_date = $1,
+            check_out_clock = $2
+      WHERE id = $3",
+    [$current_date, $current_time, $checkin_id]
+);
+
+if ($update) {
+    // Redirect back to the dashboard
+    header('Location: /dashboard.php');
+    exit;
+} else {
+    http_response_code(500);
+    echo "Check-out failed: " . pg_last_error($conn);
+    exit;
+}
+?>

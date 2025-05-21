@@ -1,12 +1,15 @@
-</body>
+<?php
+// public/includes/footer.php
+?>
 
-<footer style="text-align: center; margin-top: 40px;">
-    &copy; <?= date('Y') ?> MMB Contractors. All rights reserved.
-    <script src="<?= $baseUrl ?? '/MMB' ?>/assets/js/common.js"></script>    <a href="/MMB/public/dashboard.php">
-
-
-</a>
+<footer class="site-footer">
+  <div class="footer-container">
+    <p>© 2025 MMB Contractors. All rights reserved.</p>
+    <p class="footer-small">123 Main St, Philadelphia, PA</p>
+  </div>
 </footer>
 
 
+
+</body>
 </html>

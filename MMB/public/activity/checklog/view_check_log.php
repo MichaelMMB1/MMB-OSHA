@@ -25,6 +25,19 @@ if ($filter_today) {
 }
 $sql .= " ORDER BY cl.check_in_date DESC, cl.check_in_clock DESC";
 
+
+$result = pg_query_params($conn, $sql, $params);
+if (!$result) {
+    die('Activity query error: ' . pg_last_error($conn));
+}
+
+$activityLog = [];
+while ($row = pg_fetch_assoc($result)) {
+    $activityLog[] = $row;
+}
+pg_free_result($result);
+
+
 $result = $mysqli->query($sql);
 ?>
 <div class="container">
@@ -45,7 +58,7 @@ $result = $mysqli->query($sql);
       </tr>
     </thead>
     <tbody>
-      <?php while ($row = $result->fetch_assoc()): ?>
+      <?php foreach ($activityLog as $r): ?>
       <tr>
         <td><?= htmlspecialchars($row['user_name']) ?></td>
         <td><?= htmlspecialchars($row['location'])  ?></td>
@@ -54,7 +67,7 @@ $result = $mysqli->query($sql);
         <td><?= htmlspecialchars($row['check_out_date']  ?? '-') ?></td>
         <td><?= htmlspecialchars($row['check_out_clock'] ?? '-') ?></td>
       </tr>
-      <?php endwhile; ?>
+      <?php endforeach; ?>
     </tbody>
   </table>
 </div>
