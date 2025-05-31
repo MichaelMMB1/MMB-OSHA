@@ -1,0 +1,62 @@
+/* ========================================
+   STANDARD MODAL STYLES (IDENTICAL TO OTHERS)
+   ======================================== */
+
+/* 1) Overlay backdrop */
+.modal-overlay {
+  position: fixed;
+  top:    0;
+  left:   0;
+  width:  100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;               /* hidden by default */
+  align-items:    center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+/* When JS adds .show, we display it */
+.modal-overlay.show {
+  display: flex;
+}
+
+/* 2) The white “box” in the center */
+.modal-box {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 600px;
+  width:     90%;
+  padding:   1.5rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+/* 3) Header with title and × */
+.modal-header {
+  display:        flex;
+  align-items:    center;
+  justify-content: space-between;
+}
+.modal-header .btn-cancel {
+  font-size: 1.5rem;
+  background: transparent;
+  border:     none;
+  cursor:     pointer;
+}
+
+/* 4) Body area */
+.modal-body {
+  margin-top: 1rem;
+}
+
+/* 5) Footer actions */
+.modal-actions {
+  display:        flex;
+  justify-content: flex-end;
+  margin-top:     1.5rem;
+  border-top:     1px solid #eee;
+  padding-top:    1rem;
+}
+.modal-actions .btn-primary {
+  margin-left: .5rem;
+}

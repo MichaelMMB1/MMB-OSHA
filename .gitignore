@@ -1,0 +1,24 @@
+# Ignore the .env file containing secrets
+.env
+
+# Ignore Composer dependencies if needed
+/vendor/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore IDE/project config files
+*.log
+*.bak
+*.tmp
+
+# VSCode, PHPStorm, Sublime, etc.
+.vscode/
+.idea/
+*.sublime-*
+
+# OS-specific
+*.swp
+*.swo

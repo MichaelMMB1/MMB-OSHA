@@ -1,0 +1,87 @@
+
+  /* full-screen, centered overlay */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+  }
+  .modal-overlay.show {
+    display: flex;
+  }
+
+  .modal-box {
+    background: #fff;
+    border-radius: 8px;
+    width: 700px;
+    max-width: 95%;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    padding: 1.5rem;      /* ← add this */
+  }
+  /* header */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  .modal-header h2 {
+    margin: 0;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  /* body */
+  /* body for Schedule modal only */
+#addScheduleModal .modal-body {
+    display: flex;
+    padding: 1.5rem;
+    gap: 2rem;
+    /* allow weekend panel to extend and be clickable */
+    overflow: visible;
+}
+
+/* Project modal remains block layout */
+#addProjectModal .modal-body {
+    display: block;
+    padding: 1.5rem;
+}
+
+/* common body children */
+
+  /* make each field row in Project modal flex to fill width */
+  #addProjectModal .modal-body > .form-row {
+    flex: 1;
+  }
+  .modal-body .form-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .modal-body .form-left .form-row {
+    display: flex;
+    flex-direction: column;
+  }
+  .modal-body .form-right {
+    width: 200px;
+    padding: 1rem;
+    background: #f0f7ff;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+  .modal-body .form-right .weekend {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: #fff7e6;
+    border-radius: 4px;
+  }
+  /* footer (hidden, since buttons are in header) */
+  .modal-box form {
+    display: block;
+  }

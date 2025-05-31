@@ -1,0 +1,2 @@
+RAW INPUT:
+[{"id":"2280","date":"2025-05-12","project_id":"104","check_in":"06:14:00","check_out":"21:14:00","verified":false}]
