@@ -1,0 +1,214 @@
+/* public/activity/activity_styles.css */
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.tab-btn {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.tab-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* Toolbar */
+.activity-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+.activity-toolbar input[type="search"] {
+  flex: 1;
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+.btn-modify {
+  background: #17a2b8;
+  color: white;
+}
+
+/* Styled Table */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-family: sans-serif;
+}
+.styled-table th,
+.styled-table td {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.styled-table thead {
+  background-color: #f5f5f5;
+}
+.styled-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Verify button inside table */
+.verify-btn {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+.verify-btn.active {
+  color: #28a745;
+}
+.verify-btn:not(.active) {
+  color: #dc3545;
+}
+
+/* Modal base */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.modal .modal-content,
+.modal-box {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  padding: 1rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 0.5rem;
+}
+.modal-close {
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+/* Add-Activity Modal */
+#addActivityModal.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+#addActivityModal .modal-box {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form rows */
+.form-row {
+  margin-bottom: 1rem;
+}
+.form-row label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.form-row input[type="time"],
+.form-row input[type="date"],
+.form-row select {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Modal table row controls */
+.modal-row-lock,
+.modal-row-delete {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.modal-row-lock[disabled],
+.modal-row-delete[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.tag-container { display:flex; flex-wrap:wrap; gap:0.25em; }
+.tag {
+  display:inline-flex;
+  align-items:center;
+  padding:0.2em 0.5em;
+  border-radius:3px;
+  color:#fff;
+  font-size:0.9em;
+}
+.tag-remove {
+  margin-left:0.3em;
+  cursor:pointer;
+}
+
+
+/* ── Profile dropdown in the navbar ──────────────────────────────────── */
+.navbar-profile-container {
+  position: relative;
+}
+
+.navbar-profile-container .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0;
+  z-index: 1000;
+}
+
+.navbar-profile-container:hover .dropdown-menu,
+.navbar-profile-container .dropdown-menu:hover {
+  display: block;
+}

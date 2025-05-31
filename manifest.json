@@ -1,0 +1,21 @@
+{
+  "name": "MMB Contractors",
+  "short_name": "MMB",
+  "start_url": "/index/php/index.php",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0f4d75",
+  "theme_color": "#0f4d75",
+  "icons": [
+    {
+      "src": "/assets/images/mmb-favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/mmb-favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
